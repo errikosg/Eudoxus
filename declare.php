@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require('db.php');
+	$_SESSION['declared_books'] = 0;
 	if (isset($_SESSION['id'])) {
 		$id = trim($_SESSION['id']);
 		$name = "ΧΡΗΣΤΗΣ";
@@ -101,10 +102,9 @@
 
 	<!-- main -->
 	<div class="container mt-4 mb-4 border p-3" id="cont" style="min-height:255px">
-		<!--<p>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br></p>-->
 		<div class="dropdown">
 			<button class="btn btn-primary dropdown-toggle text-light" type="button" data-toggle="dropdown" style="width:180px" id="changeBttn">Επιλέξτε εξάμηνο <span class="caret"></span></button>
-			</ul><button type="submit" class="btn btn-primary" onclick="checkValid()" style="width:100px;float:right">Επόμενο</button>
+			<button type="submit" class="btn btn-primary" onclick="checkValid()" style="width:100px;float:right">Επόμενο</button>
 			<span style="font-style:italic;padding-left:15px;" class="text-muted" id="description"></span><br>
 			<small id="small" class="text-danger" style="display:none;float:right">Επιλέξτε πρώτα κάποιο σύγγραμμα!</small>
 			<ul class="dropdown-menu p-2">
@@ -115,9 +115,9 @@
 			</ul>
 		</div>
 
-		<div class="container-fluid mt-5 p-2"><form id="myform" action="submitBooks.php" method="post">
-			<div class="list-group" id="results" style="display:none">
-			</div>
+		<div class="container-fluid mt-5 p-2"><form id="myform" action="showSelectedBooks.php" method="post">
+			<div class="list-group" id="results" style="display:none"></div>
+
 		</form></div>
 	</div>
 
@@ -149,11 +149,17 @@
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					res.innerHTML = this.responseText;
-					/*var node = document.createElement("UL");
-					node.className = "ul_cont";
-					node.id = "ul" + num;
-					node.innerHTML = this.responseText;
-					document.getElementById("results").appendChild(node);*/
+
+					cl = document.getElementsByClassName("check1");
+					for(i=0; i<cl.length; i++){
+						if(fixOther.out.has(cl[i].value))
+							cl[i].checked = true;
+					}
+					cl = document.getElementsByClassName("check2");
+					for(i=0; i<cl.length; i++){
+						if(fixOther.out.has(cl[i].value))
+							cl[i].checked = true;
+					}
 			    }
 			};
 			xhttp.open("POST", "showClasses.php?opt=" + num, true);
@@ -165,13 +171,17 @@
 			y.style.display = "block";
 		}
 
+		fixOther.out = new Set([]);
 		function fixOther(cl, id){
 			var x = document.getElementsByClassName(cl);
 			var i=0;
 			for(i=0; i<x.length; i++){
 				if(x[i].id != id){
 					x[i].checked = false;
+					fixOther.out.delete(x[i].value);
 				}
+				else
+					fixOther.out.add(x[i].value);
 			}
 			var sm = document.getElementById("small");
 			sm.style.display = "none";
@@ -185,31 +195,28 @@
 			var out = [];
 
 			for(var i=0; i<x.length; i++){
-				if(x[i].checked == true){
+				if(x[i].checked == true || y[i].checked == true){
 					flag=1;
-					out.push(x[i].value);
-				}
-				if(y[i].checked == true){
-					flag = 1;
-					out.push(y[i].value);
+					break;
 				}
 			}
-			console.log(typeof(out));
 			if(flag == 0){
 				sm.style.display = "inline";
 			}
 			else{
 				sm.style.display = "none";
-				var xhttp = new XMLHttpRequest();
+				window.location = "showSelectedBooks.php?res="+Array.from(fixOther.out);
+				/*var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						console.log(this.responseText);
-						window.location = "history.php";
+						console.log(fixOther.out);
+						window.location = "showSelectedBooks.php?res="+Array.from(fixOther.out);
 					}
 				};
 				var num=5;
-				xhttp.open("POST", "submitBooks.php?res=" + out, true);
-				xhttp.send();
+				xhttp.open("POST", "submitBooks.php?res=" + Array.from(fixOther.out), true);
+				xhttp.send();*/
 			}
 		}
 	</script>

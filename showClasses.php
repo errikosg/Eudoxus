@@ -36,7 +36,6 @@
 				$result3 = $db->query($sql3);
 				$row3 = $result3->fetch_assoc();
 
-
 				echo '<li><span class="checkbox" style="font-size:400%;float:right">
 				<label><input type="checkbox" name="check" value="' . $row3["idBooks"] . '"class="check' . $index . '" id="check' . $index2 . '" onclick="fixOther(this.className, this.id)"></label>
 				</span><p class="mb-2"><span class="text-primary">Σύγγραμμα ' . $index2 . '</span>: ' . $row3["Title"] . ' </p>

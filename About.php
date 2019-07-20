@@ -99,13 +99,13 @@
 		</div>
 	</nav>
 
-	<div class="container mt-4 border" id="cont">
-		<h5 class="text-dark text-center">Χρήσιμοι σύνδεσμοι</h5><br>
-		<p><a class="text-primary" href="https://repository.kallipos.gr/"> Αποθετήριο Κάλλιπος: </a> Ελληνικά Ακαδημαϊκά Ηλεκτρονικά Συγγράμματα και Βοηθήματα / Κάλλιπος </p>
-		<p><a class="text-primary" href="http://www.book4book.gr/"> Book4Book: </a> Πλατφόρμα ανταλλαγής σχολικών βιβλίων </p><br>
-		<p><a class="text-primary" href="https://eudoxus.gr/EudoxusPlus.html"> Eudoxus+: </a> Δράση Ανταλλαγής Συγγραμμάτων </p><br>
+	<div class="container mt-4" id="cont">
+		<h4 class="text-dark text-center">Χρήσιμοι σύνδεσμοι</h5><br>
+		<p><a class="text-primary" href="https://repository.kallipos.gr/"> Αποθετήριο Κάλλιπος</a> : Ελληνικά Ακαδημαϊκά Ηλεκτρονικά Συγγράμματα και Βοηθήματα / Κάλλιπος </p>
+		<p><a class="text-primary" href="http://www.book4book.gr/"> Book4Book</a> : Πλατφόρμα ανταλλαγής σχολικών βιβλίων </p><br>
+		<p><a class="text-primary" href="https://eudoxus.gr/EudoxusPlus.html"> Eudoxus+</a> : Δράση Ανταλλαγής Συγγραμμάτων </p><br>
 
-		<h5 class="text-dark text-center">Επικοινωνία</h5><br>
+		<h4 class="text-dark text-center">Επικοινωνία</h5><br>
 		<p>Τηλεφωνικώς στα εξής:</p>
 		<ul>
 			<li> 215 215 2155-6</li>

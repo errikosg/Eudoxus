@@ -32,9 +32,9 @@
 		if( $oldPass == md5("") ) {
 			$newPass = $row['password'];
 		}
-		$sql = "UPDATE users SET email='$email', password='$newPass' WHERE idUsers=$id";
+		$sql = "UPDATE Users SET email='$email', password='$newPass' WHERE idUsers=$id";
 		if( $db->query($sql) === TRUE) {
-			$sql = "UPDATE student SET FirstName='$fname', LastName='$lname', AM='$am', CurSem=$sem WHERE idStudent=$id";
+			$sql = "UPDATE Student SET FirstName='$fname', LastName='$lname', AM='$am', CurSem=$sem WHERE idStudent=$id";
 			if( $db->query($sql) === TRUE) {
 				echo 'ok';
 			} else {
@@ -73,9 +73,9 @@
 		if( $oldPass == md5("") ) {
 			$newPass = $row['password'];
 		}
-		$sql = "UPDATE users SET email='$email', password='$newPass' WHERE idUsers=$id";
+		$sql = "UPDATE Users SET email='$email', password='$newPass' WHERE idUsers=$id";
 		if( $db->query($sql) === TRUE) {
-			$sql = "UPDATE distributor SET Name='$name', Phone='$phone', Location='$loc' WHERE idDistributor=$id";
+			$sql = "UPDATE Distributor SET Name='$name', Phone='$phone', Location='$loc' WHERE idDistributor=$id";
 			if( $db->query($sql) === TRUE) {
 				echo 'ok';
 			} else {

@@ -11,6 +11,7 @@
 			if ($row['password'] == $psw) {
 				$_SESSION['id'] = $row['idUsers'];
 				$_SESSION['team'] = $row['teamFlag'];
+				$_SESSION['declared_books'] = 0;
 				echo "ok";
 			}else {
 				echo "O κωδικός που πληκτρολογήσατε δεν είναι σωστός!";

@@ -140,7 +140,7 @@
 									<table class="table table-user-information pad">
 										<tbody class="box pad">
 											<tr>
-											<td>δεν έχετε παραλάβει βιβλία</td>
+											<td>Δεν έχετε πραγματοποιήσει καποια δήλωση.</td>
 											</tr>
 										<tbody>
 									</table>

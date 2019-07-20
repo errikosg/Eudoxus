@@ -14,7 +14,7 @@
 				$name = $row['LastName'];
 			}
 			$tabs = "<li class='nav-item dropdown active'>
-						<a class='nav-link dropdown-toggle' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+						<a class='nav-link dropdown-toggle' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'  style='cursor:pointer;'>
 							 $name
 						</a>
 						<div class='dropdown-menu' aria-labelledby='navbarDropdown'>
@@ -207,7 +207,7 @@
 							<span>Ή</span>
 						</div>
 						<form action="profile.php">
-							<button type="submit" class='btn btn-primary red'>Άκυρο</button>
+							<button type="submit" class='btn btn-danger red'>Άκυρο</button>
 						</form>
 					</div>
 				</div>

@@ -140,10 +140,10 @@
 				x.style.display = "none";
 				return;
 			}
-			else{
+			/*else{
 				var x = document.getElementById("results");
 				x.style.display = "block";
-			}
+			}*/
 			//check search condition
 			var check_opt = document.getElementsByClassName("options")[0]; var opt;
 			if(check_opt.id == "option1"){
@@ -154,7 +154,13 @@
 			}
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("results").innerHTML = this.responseText;
+					//document.getElementById("results").innerHTML = this.responseText;
+					console.log(this.responseText + ".")
+					if (this.responseText){
+						var x = document.getElementById("results");
+						x.style.display = "block";
+						x.innerHTML = this.responseText;
+					}
 			    }
 			};
 			xhttp.open("POST", "search.php?sname=" + str + "&opt=" + opt, true);
