@@ -119,8 +119,9 @@
             </form>
         </div>
 
-        <div class="container p-4" id="books_div" style="display:none">
-
+        <div class="container p-2" id="books_div" style="display:none">
+            <ul class="list-group border rounded" id="results">
+            </ul>
         </div>
     </div>
 
@@ -141,8 +142,8 @@
                         $.post("showStudentHistory.php", {email:email})
                             .done(function(resp) {
                                 if(status="success") {
+                                    $("#results").html(resp);
                                     $("#books_div").css("display", "block");
-                                    $("#books_div").html(resp);
                                 }
                             });
                         //$("#books_div").css("display", "block");
