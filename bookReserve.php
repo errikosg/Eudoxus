@@ -20,7 +20,7 @@
 						<div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 							<a class='dropdown-item' href='profile.php'>ΠΡΟΦΙΛ</a>
 							<a class='dropdown-item' href='declare.php'>ΔΗΛΩΣΗ ΣΥΓΡΑΜΜΑΤΩΝ</a>
-							<a class='dropdown-item' href='#'>ΙΣΤΟΡΙΚΟ ΔΗΛΩΣΕΩΝ</a>
+							<a class='dropdown-item' href='history.php'>ΙΣΤΟΡΙΚΟ ΔΗΛΩΣΕΩΝ</a>
 							<div class='dropdown-divider'></div>
 							<a class='dropdown-item' href='?logout==yes'>ΕΞΟΔΟΣ</a>
 						</div>
@@ -92,7 +92,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="search_link" href="SearchBooks.php">ΑΝΑΖΗΤΗΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</a>
-					</li
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="about_link" href="About.php">ΧΡΗΣΙΜΑ</a>
 					</li>
@@ -101,53 +101,38 @@
 		</div>
 	</nav>
 
-    <!-- <button class="btn btn-primary"><i class="fas fa-chevron-left"></i> Left</button> -->
     <div class="container mt-5 mb-4" id="cont">
-		<h4 class="text-dark text-center"> ΟΛΑ ΤΑ ΒΙΒΛΙΑ </h4><br>
+        <h4 class="text-dark text-center"> ΑΠΟΘΕΜΑ </h4><br>
+        <ul class="list-group border rounded" id="results">
+            <?php
+                require('db.php');
+                $sql = "SELECT * FROM Distributor_has_Book";
+                $result = $db->query($sql);
+                if($result->num_rows > 0) {
+                    $lines = $result->num_rows;
+                    $counter=1;
+                    while($lines > 0) {
+                        $row = $result->fetch_assoc();
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <button class="btn btn-primary" style="width:30%"><i class="fas fa-chevron-left"></i>
-                        <a href="SearchBooks.php" style="color:white;text-decoration:none"> Πίσω </a>
-                    </button>
-                </div>
-            </div>
-        </div>
+                        //find distributor
+                        $bid = $row["idBooks"];
+                        $did = $row["idDistributor"];
+                        $quant = $row["Quantity"];
 
-        <div class="container-fluid mt-3 p-2">
-			<ul class="list-group border rounded" id="results">
-                <?php
-                    require('db.php');
-                    $sql = "SELECT * FROM Books";
-                    $result = $db->query($sql);
-                	if($result->num_rows > 0) {
-                        $lines = $result->num_rows;
-                        $counter=1;
-                		while($lines > 0) {
-                			$row = $result->fetch_assoc();
+                        $sql2 = "SELECT * FROM Books WHERE idBooks = '$bid'";
+                        $result2 = $db->query($sql2);
+                        $row2 = $result2->fetch_assoc();
 
-                			//find distributor
-                			$bid = $row["idBooks"];
-                			$sql2 = "SELECT * FROM Distributor_has_Book WHERE idBooks = '$bid'";
-                			$result2 = $db->query($sql2);
-                			$row2 = $result2->fetch_assoc();
-                			$did = $row2["idDistributor"];
-                			$sql3 = "SELECT * FROM Distributor WHERE idDistributor = '$did'";
-                			$result3 = $db->query($sql3);
-                			$row3 = $result3->fetch_assoc();
-
-                			echo '<li class="list-group-item list-group-item-action flex-column align-items-start">
-                			<div class="d-flex w-100 justify-content-between"> <h5 class="mb-1 text-primary">' . $counter . '. ' . $row["Title"] . '</h5></div>
-                			<p class="mb-2">Συγγραφέας: ' . $row["Author"] . '</p><p class="mb-2">Εκδόσεις: ' . $row["Publication"] . '</p><p class="mb-2">ISBN:
-                			 ' . $row["ISBN"] . '</p><p>Διανομέας: ' . $row3["Name"] . '</p><p>Σημείο Πώλησης: ' . $row3["Location"] . '</p></li>';
-                			$lines -= 1;
-                            $counter += 1;
-                		}
+                        echo '<li class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between"> <h5 class="mb-1 text-primary">' . $counter . '. ' . $row2["Title"] . '</h5></div>
+                        <p class="mb-2">Συγγραφέας: ' . $row2["Author"] . '</p><p class="mb-2">Εκδόσεις: ' . $row2["Publication"] . '</p><p class="mb-2">ISBN:
+                         ' . $row2["ISBN"] . '</p><p style="font-size:110%"><b>Ποσότητα: ' . $quant . '</b></p></li>';
+                        $lines -= 1;
+                        $counter += 1;
                     }
-                ?>
-			</ul>
-		</div>
+                }
+            ?>
+        </ul>
     </div>
 
 </body>

@@ -8,7 +8,6 @@
 	$token = strtok($res, ",");
 	while ($token !== false){
 		$bid = (int)$token;
-		echo $bid;
 		$sql = "INSERT INTO History (Student_id, idBooks) VALUES ('$uid', '$bid')";
 		$result = $db->query($sql);
 		$token = strtok(",");

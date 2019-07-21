@@ -84,6 +84,10 @@ h1 {
 	margin: 2vh auto;
 }
 
+.hide {
+    display:none !important;
+}
+
 /*snackbar*/
 #snackbar {
   visibility: hidden;

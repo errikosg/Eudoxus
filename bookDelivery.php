@@ -20,7 +20,7 @@
 						<div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 							<a class='dropdown-item' href='profile.php'>ΠΡΟΦΙΛ</a>
 							<a class='dropdown-item' href='declare.php'>ΔΗΛΩΣΗ ΣΥΓΡΑΜΜΑΤΩΝ</a>
-							<a class='dropdown-item' href='#'>ΙΣΤΟΡΙΚΟ ΔΗΛΩΣΕΩΝ</a>
+							<a class='dropdown-item' href='history.php'>ΙΣΤΟΡΙΚΟ ΔΗΛΩΣΕΩΝ</a>
 							<div class='dropdown-divider'></div>
 							<a class='dropdown-item' href='?logout==yes'>ΕΞΟΔΟΣ</a>
 						</div>
@@ -69,7 +69,7 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="general.css">
+	<link rel="stylesheet" type="text/css" href="general.css">
 
 	<title>Εύδοξος</title>
 </head>
@@ -92,7 +92,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="search_link" href="SearchBooks.php">ΑΝΑΖΗΤΗΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</a>
-					</li
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="about_link" href="About.php">ΧΡΗΣΙΜΑ</a>
 					</li>
@@ -101,54 +101,59 @@
 		</div>
 	</nav>
 
-    <!-- <button class="btn btn-primary"><i class="fas fa-chevron-left"></i> Left</button> -->
-    <div class="container mt-5 mb-4" id="cont">
-		<h4 class="text-dark text-center"> ΟΛΑ ΤΑ ΒΙΒΛΙΑ </h4><br>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <button class="btn btn-primary" style="width:30%"><i class="fas fa-chevron-left"></i>
-                        <a href="SearchBooks.php" style="color:white;text-decoration:none"> Πίσω </a>
-                    </button>
+    <div class="container mt-5 mb-3" id="cont">
+        <h4 class="text-dark text-center"> ΠΑΡΑΔΟΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ </h4><br>
+        <div class="container p-4 border" id="login_div" style='width:50%;margin:auto'>
+            <h5 class="text-dark text-center"> Είσοδος στοιχείων φοιτητή </h5><br>
+            <div id="msg"></div>
+            <form id="formIn" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Κωδικός</label>
+                    <input type="password" name="psw" class="form-control" id="psw" placeholder="Κωδικός">
+                </div>
+                <button type="submit" id="login" name="login" class="btn btn-primary" style="width:50%">Είσοδος</button>
+            </form>
         </div>
 
-        <div class="container-fluid mt-3 p-2">
-			<ul class="list-group border rounded" id="results">
-                <?php
-                    require('db.php');
-                    $sql = "SELECT * FROM Books";
-                    $result = $db->query($sql);
-                	if($result->num_rows > 0) {
-                        $lines = $result->num_rows;
-                        $counter=1;
-                		while($lines > 0) {
-                			$row = $result->fetch_assoc();
+        <div class="container p-4" id="books_div" style="display:none">
 
-                			//find distributor
-                			$bid = $row["idBooks"];
-                			$sql2 = "SELECT * FROM Distributor_has_Book WHERE idBooks = '$bid'";
-                			$result2 = $db->query($sql2);
-                			$row2 = $result2->fetch_assoc();
-                			$did = $row2["idDistributor"];
-                			$sql3 = "SELECT * FROM Distributor WHERE idDistributor = '$did'";
-                			$result3 = $db->query($sql3);
-                			$row3 = $result3->fetch_assoc();
-
-                			echo '<li class="list-group-item list-group-item-action flex-column align-items-start">
-                			<div class="d-flex w-100 justify-content-between"> <h5 class="mb-1 text-primary">' . $counter . '. ' . $row["Title"] . '</h5></div>
-                			<p class="mb-2">Συγγραφέας: ' . $row["Author"] . '</p><p class="mb-2">Εκδόσεις: ' . $row["Publication"] . '</p><p class="mb-2">ISBN:
-                			 ' . $row["ISBN"] . '</p><p>Διανομέας: ' . $row3["Name"] . '</p><p>Σημείο Πώλησης: ' . $row3["Location"] . '</p></li>';
-                			$lines -= 1;
-                            $counter += 1;
-                		}
-                    }
-                ?>
-			</ul>
-		</div>
+        </div>
     </div>
+
+    <script>
+    $(function() {
+    	$("#formIn").submit(function() {
+    		event.preventDefault();
+    		$("#login").text("Αναμένετε...");
+
+    		var email = $("#email").val();
+    		var psw = $("#psw").val();
+    		$.post("checkUser.php", {email:email, psw:psw})
+    			.done(function(resp) {
+    				if(resp == 'ok') {
+    					$("#login_div").css("display", "none");
+
+                        //2nd ajax request, show history
+                        $.post("showStudentHistory.php", {email:email})
+                            .done(function(resp) {
+                                if(status="success") {
+                                    $("#books_div").css("display", "block");
+                                    $("#books_div").html(resp);
+                                }
+                            });
+                        //$("#books_div").css("display", "block");
+    				} else {
+    					$("#login").text("Είσοδος");
+    					$("#msg").html("<div class='alert alert-danger'>"+resp+"</div>");
+    				}
+    			});
+    	});
+    });
+    </script>
 
 </body>
 </html>

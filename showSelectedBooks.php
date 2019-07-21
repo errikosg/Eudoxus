@@ -40,6 +40,8 @@
 						</a>
 						<div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 							<a class='dropdown-item' href='profile.php'>ΠΡΟΦΙΛ</a>
+							<a class='dropdown-item' href='bookDelivery.php'>ΠΑΡΑΔΟΣΗ ΣΥΓΓΡΑΜΜΑΤΟΣ</a>
+							<a class='dropdown-item' href='bookReserve.php'>ΑΠΟΘΕΜΑ</a>
 							<a class='dropdown-item' href='#'></a>
 							<div class='dropdown-divider'></div>
 							<a class='dropdown-item' href='?logout==yes'>ΕΞΟΔΟΣ</a>

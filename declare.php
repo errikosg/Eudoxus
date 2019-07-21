@@ -38,6 +38,8 @@
 						</a>
 						<div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 							<a class='dropdown-item' href='profile.php'>ΠΡΟΦΙΛ</a>
+							<a class='dropdown-item' href='bookDelivery.php'>ΠΑΡΑΔΟΣΗ ΣΥΓΓΡΑΜΜΑΤΟΣ</a>
+							<a class='dropdown-item' href='bookReserve.php'>ΑΠΟΘΕΜΑ</a>
 							<a class='dropdown-item' href='#'></a>
 							<div class='dropdown-divider'></div>
 							<a class='dropdown-item' href='?logout==yes'>ΕΞΟΔΟΣ</a>
@@ -68,7 +70,7 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="./css/general.css">
+	<link rel="stylesheet" href="general.css">
 
 	<title>Εύδοξος</title>
 </head>
