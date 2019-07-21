@@ -9,7 +9,7 @@
     $row = $result->fetch_assoc();
     $sid = $row['idUsers'];
 
-    $sql = "SELECT * FROM History WHERE Student_id= '$sid' AND idBooks IN (SELECT idBooks FROM Distributor_has_Book WHERE idDistributor = '$uid')";
+    $sql = "SELECT * FROM History WHERE Student_id= '$sid' AND idBooks IN (SELECT idBooks FROM Distributor_has_Book WHERE idDistributor = '$uid' AND Quantity>0)";
     $result = $db->query($sql);
     if($result->num_rows > 0) {
         $lines = $result->num_rows;
@@ -32,14 +32,18 @@
             $sql3 = "SELECT * FROM Student_has_Book WHERE Student_idStudent=$sid AND Book_idBook=$bid";
             $result3 = $db->query($sql3);
             if($result3->num_rows == 0) {
-                $out .= '<div class="col-sm-6"><button class="btn btn-primary" style="min-width:150px;width:30%"> Παράδοση </button></div></div></li>';
+                $out .= '<div class="col-sm-6" id=' . $counter . '><button class="btn btn-primary" onclick="submit(' . $bid . ', ' . $counter . ', ' . $sid . ')" style="min-width:150px;width:30%"> Παράδοση </button></div></div></li>';
             } else{
-                $out .= '<div class="col-sm-6"><p style="font-style:italic"> *Ο φοιτητής έχει ήδη πραλάβει αυτό το σύγγραμμα* </p></div>';
+                $out .= '<div class="col-sm-6"><b style="font-style:italic"> *Ο φοιτητής έχει ήδη πραλάβει αυτό το σύγγραμμα* </b></div>';
             }
-
             echo $out;
             $lines -= 1;
             $counter += 1;
         }
     }
+    else{
+        echo '<p style="font-size:120%;width:50%;margin:auto;color:red"> Ο φοιτητής δεν έχει πραγματοποιήσει ακόμα κάποια δήλωση!</p>
+                <br><br><button style="min-width:200px;max-width:300px" onclick="window.location.reload();" class="btn btn-primary"><i class="fas fa-chevron-left mr-2"></i> Είσοδος στοιχείων άλλου φοιτητή </button>';
+    }
+    $db->close();
 ?>

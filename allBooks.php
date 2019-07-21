@@ -108,9 +108,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <button class="btn btn-primary" style="width:30%"><i class="fas fa-chevron-left"></i>
-                        <a href="SearchBooks.php" style="color:white;text-decoration:none"> Πίσω </a>
-                    </button>
+                    <button class="btn btn-primary" onclick="gotoSearch()" style="width:30%"><i class="fas fa-chevron-left mr-2"></i>Πίσω</button>
                 </div>
             </div>
         </div>
@@ -150,5 +148,10 @@
 		</div>
     </div>
 
+	<script>
+		function gotoSearch(){
+			window.location = "SearchBooks.php"
+		}
+	</script>
 </body>
 </html>

@@ -68,8 +68,7 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="general.css">
+    <link rel="stylesheet" type="text/css" href="general.css" />
 
 	<title>Εύδοξος</title>
 </head>
@@ -154,6 +153,21 @@
     			});
     	});
     });
+
+    function submit(bookId, buttonId, studentId){
+        var x = document.getElementById(buttonId)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText)
+                x.innerHTML = '<p style="font-style:italic"> *Ο φοιτητής έχει ήδη πραλάβει αυτό το σύγγραμμα* </p>'
+            }
+        };
+        xhttp.open("POST", "deliver.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("bid=" + bookId + "&sid=" + studentId);
+    }
+
     </script>
 
 </body>

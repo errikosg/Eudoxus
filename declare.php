@@ -69,10 +69,16 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="general.css">
+	<link rel="stylesheet" type="text/css" href="general.css" />
 
 	<title>Εύδοξος</title>
+	<style>
+	input[type='checkbox'] {
+	    width:18px !important;
+	    height:18px !important;
+	    background:white;
+	}
+	</style>
 </head>
 
 <body>

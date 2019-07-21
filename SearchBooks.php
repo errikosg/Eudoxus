@@ -118,7 +118,7 @@
 				</ul>
 			</div>
 			<div class="col-sm-6" style="padding-left:0px">
-				<button class="btn btn-primary" type="button" style="width:150px;position:absolute;right:0px;"> <a id="show-all" style="color:white;text-decoration:none" href="allBooks.php">Όλα τα βιβλία </a></button>
+				<button class="btn btn-primary" type="button" onclick="gotoAll()" style="width:150px;position:absolute;right:0px;">Όλα τα βιβλία</button>
 			</div>
 		</div>
 
@@ -195,6 +195,10 @@
 				opt2.innerHTML = '<a href="#">Συγγραφέας</a>';
 				opt2.id = "option1";
 			}
+		}
+
+		function gotoAll(){
+			window.location = "allBooks.php"
 		}
 	</script>
 </body>
