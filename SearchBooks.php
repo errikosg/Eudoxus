@@ -112,9 +112,9 @@
 			<div class="row">
 			<div class="col-sm-6 dropdown" style="padding-left:0px">
 				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:150px;" id="changeBttn"> Τίτλος <span class="caret"></span></button>
-				<span style="font-style:italic" class="text-muted" id="description">Αναζήτηση με βάση τον τίτλο </span>
+				<span style="font-style:italic" class="text-muted ml-2" id="description">Αναζήτηση με βάση τον τίτλο </span>
 				<ul class="dropdown-menu p-2">
-					<li class="options" id="option1" onclick="changeSearch(this.id)" style="cursor:pointer"><a href="#">Συγγραφέας</a></li>
+					<li class="options" id="option1" onclick="changeSearch(this.id)" style="cursor:pointer"><a href="#" style="text-decoration:none">Συγγραφέας</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-6" style="padding-left:0px">
@@ -183,7 +183,7 @@
 				var des = document.getElementById("description");
 				des.innerHTML = "Αναζήτηση με βάση τον συγγραφέα";
 				var opt1 = document.getElementById("option1");
-				opt1.innerHTML = '<a href="#">Τίτλος</a>';
+				opt1.innerHTML = '<a href="#" style="text-decoration:none">Τίτλος</a>';
 				opt1.id = "option2";
 			}
 			else if(option == "option2"){
@@ -192,7 +192,7 @@
 				var des = document.getElementById("description");
 				des.innerHTML = "Αναζήτηση με βάση τον τίτλο";
 				var opt2 = document.getElementById("option2");
-				opt2.innerHTML = '<a href="#">Συγγραφέας</a>';
+				opt2.innerHTML = '<a href="#" style="text-decoration:none">Συγγραφέας</a>';
 				opt2.id = "option1";
 			}
 		}

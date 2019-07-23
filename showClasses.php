@@ -16,7 +16,7 @@
 		$lines = $result->num_rows;
 		$index = 1;
 
-		while($lines > 0) {
+		/*while($lines > 0) {
 			$row = $result->fetch_assoc();
 			echo '<li href="#" class="list-group-item flex-column align-items-start">
 			<p class="mb-2"><span class="font-weight-bold">Μάθημα</span>: ' . $row["Name"] . '</p><p class="mb-2">Εξάμηνο: ' . $sem . '</p>
@@ -49,7 +49,59 @@
 			echo "</ul></div></li>";
 			$index += 1;
 			$lines -= 1;
+		}*/
+
+		while($lines > 0) {
+			$row = $result->fetch_assoc();
+			$out = '<li href="#" class="list-group-item flex-column align-items-start">
+			<p class="mb-2"><span class="font-weight-bold">Μάθημα</span>: ' . $row["Name"] . '</p><p class="mb-2">Εξάμηνο: ' . $sem . '</p>';
+
+			$cid = $row["idClasses"];
+			$sql2 = "SELECT cb.idBooks FROM Classes_has_Book AS cb JOIN Books AS b ON b.idBooks=cb.idBooks JOIN History AS h ON h.idBooks=b.idBooks WHERE cb.Classes_idClasses='$cid'";
+			$result2 = $db->query($sql2);
+			if($result2->num_rows == 0){
+				$out .= '<button class="btn btn-success dropdown-toggle text-light" type="button" onclick="showInner(' . $index . ')"
+				style="width:150px;font-size:80%display:block" id="changeBttn">Συγγράμματα <span class="caret"></span></button>
+				</div><br><br><hr><div id="res_div' . $index . '" style="display:none;"><ul>';
+				echo $out;
+
+				$sql2 = "SELECT * FROM Classes_has_Book WHERE Classes_idClasses = '$cid'";
+				$result2 = $db->query($sql2);
+				$lines2 = $result2->num_rows;
+				$index2 = 1;
+				while($lines2 > 0){
+					$row2 = $result2->fetch_assoc();
+					$bid = $row2["idBooks"];
+					$sql3 = "SELECT * FROM Books WHERE idBooks = '$bid'";
+					$result3 = $db->query($sql3);
+					$row3 = $result3->fetch_assoc();
+
+					echo '<li><span class="checkbox" style="font-size:400%;float:right">
+					<label><input type="checkbox" name="check" value="' . $row3["idBooks"] . '"class="check' . $index . '" id="check' . $index2 . '" onclick="fixOther(this.className, this.id)"></label>
+					</span><p class="mb-2"><span class="text-primary">Σύγγραμμα ' . $index2 . '</span>: ' . $row3["Title"] . ' </p>
+					<p class="mb-2">Συγγραφέας: ' . $row3["Author"] . '</p><p class="mb-2">Εκδόσεις: ' . $row3["Publication"] . '</p><p class="mb-2">ISBN:
+					' . $row3["ISBN"] . '</p></li><hr>';
+
+					$index2 += 1;
+					$uni += 1;
+					$lines2 -= 1;
+				}
+				echo "</ul></div></li>";
+			}
+			else{
+				$row2 = $result2->fetch_assoc();
+				$bid = $row2['idBooks'];
+				$sql3 = "SELECT * FROM Books WHERE idBooks='$bid'";
+				$result3 = $db->query($sql3);
+				$row3 = $result3->fetch_assoc();
+
+				$out .= '<p class="text-success mb-0" style="font-style:italic"> Έχετε ήδη παραλάβει το εξής σύγγραμμα στο μάθημα:</p><p class="text-success mt-0 font-weight-bold">' . $row3['Title'] . ' </p></li>';
+				echo $out;
+			}
+			$index += 1;
+			$lines -= 1;
 		}
+
 	}
 
 	$db->close();

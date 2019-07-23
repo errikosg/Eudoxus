@@ -106,7 +106,8 @@
         <ul class="list-group border rounded" id="results">
             <?php
                 require('db.php');
-                $sql = "SELECT * FROM Distributor_has_Book";
+				$uid = $_SESSION['id'];
+                $sql = "SELECT * FROM Distributor_has_Book WHERE idDistributor='$uid'";
                 $result = $db->query($sql);
                 if($result->num_rows > 0) {
                     $lines = $result->num_rows;

@@ -66,8 +66,7 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="general.css">
+	<link rel="stylesheet" type="text/css" href="general.css" />
 
 	<title>Προφίλ</title>
 </head>
@@ -116,24 +115,40 @@
 									$sql = "SELECT * from Books WHERE idBooks in (SELECT idBooks from History where Student_id=$id)";
 									$result = $db->query($sql);
 									if($result->num_rows > 0 ) {
-										while($row=$result->fetch_assoc()) { ?>
+										while($row=$result->fetch_assoc()) {
+											$bid = $row['idBooks'];
+
+											$sql2 = "SELECT * FROM Classes_has_Book WHERE idBooks='$bid'";
+											$result2 = $db->query($sql2);
+											$row2 = $result2->fetch_assoc();
+											$cid = $row2['Classes_idClasses'];
+
+											$sql2 = "SELECT * FROM Classes WHERE idClasses='$cid'";
+											$result2 = $db->query($sql2);
+											$row2 = $result2->fetch_assoc();
+											$cname = $row2['Name'];
+										?>
 										<table class="table table-user-information pad">
 										<tbody class="box">
-											<tr>
-											<td>Τίτλος</td>
-											<td><?php echo $row['Title']?></td>
+											<tr class="br_bottom">
+												<td class="td-left"><span style="font-size:110%;font-weight:bold">Μάθημα</span></td>
+												<td class="td-right"><span class="text-primary" style="font-size:110%;font-weight:bold"><?php echo $cname?></span></td>
 											</tr>
 											<tr>
-											<td>Συγγραφέας</td>
-											<td><?php echo $row['Author']?></td>
+												<td class="td-left">Τίτλος</td>
+												<td class="td-right"><?php echo $row['Title']?></td>
 											</tr>
 											<tr>
-											<td>Εκδόσεις</td>
-											<td><?php echo $row['Publication']?></td>
+												<td class="td-left">Συγγραφέας</td>
+												<td class="td-right"><?php echo $row['Author']?></td>
 											</tr>
 											<tr>
-											<td>ISBN</td>
-											<td><?php echo $row['ISBN']?></td>
+												<td class="td-left">Εκδόσεις</td>
+												<td class="td-right"><?php echo $row['Publication']?></td>
+											</tr>
+											<tr>
+												<td class="td-left">ISBN</td>
+												<td class="td-right"><?php echo $row['ISBN']?></td>
 											</tr>
 										</tbody>
 										</table>

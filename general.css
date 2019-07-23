@@ -88,6 +88,17 @@ h1 {
     display:none !important;
 }
 
+.td-left{
+    width:25% !important;
+}
+.td-right{
+    width:75% !important;
+}
+
+tr.br_bottom td {
+  border-bottom:1px solid #777;
+}
+
 /*snackbar*/
 #snackbar {
   visibility: hidden;

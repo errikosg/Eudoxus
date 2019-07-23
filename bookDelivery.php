@@ -119,7 +119,7 @@
         </div>
 
         <div class="container p-2" id="books_div" style="display:none">
-            <ul class="list-group border rounded" id="results">
+            <ul class="list-group rounded" id="results">
             </ul>
         </div>
     </div>
@@ -141,7 +141,7 @@
                         $.post("showStudentHistory.php", {email:email})
                             .done(function(resp) {
                                 if(status="success") {
-                                    $("#results").html(resp);
+                                    $("#results").html('<button style="min-width:200px;max-width:300px" onclick="window.location.reload();" class="btn btn-primary"><i class="fas fa-chevron-left mr-2"></i> Είσοδος στοιχείων άλλου φοιτητή </button><br>' + resp);
                                     $("#books_div").css("display", "block");
                                 }
                             });
@@ -160,7 +160,7 @@
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.responseText)
-                x.innerHTML = '<p style="font-style:italic"> *Ο φοιτητής έχει ήδη πραλάβει αυτό το σύγγραμμα* </p>'
+                x.innerHTML = '<br><b class="text-success" style="font-style:italic"> *Ο φοιτητής έχει ήδη πραλάβει αυτό το σύγγραμμα* </b>'
             }
         };
         xhttp.open("POST", "deliver.php", true);
