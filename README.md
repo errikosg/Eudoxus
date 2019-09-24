@@ -9,3 +9,6 @@ Any user that belongs to either group can use the interface, have personal profi
 - Javascript-JQuery
 - PHP (using XAMPP)
 - MySQL
+
+Homepage:<br><br>
+![homepage](https://github.com/errikosg/Eudoxus/blob/master/imgs/homepage.png)
